@@ -43,7 +43,6 @@
 			<version>${camel.version}</version>
 		</dependency>
 		<dependency>
-<<<<<<< HEAD
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-bindy</artifactId>
 			<version>${camel.version}</version>
@@ -54,9 +53,7 @@
 			<version>${camel.version}</version>
 		</dependency>
 
-		<dependency>
-=======
->>>>>>> 2eb6b80e43550e17c91e569eacb8e6eb970bbccf
+		<dependency> 
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
