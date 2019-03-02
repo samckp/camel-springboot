@@ -2,17 +2,20 @@ camel:
   springboot:
       main-run-controller: true
 
+spring:
+  activemq:
+    broker-url: tcp://localhost:61616
 ---
 spring:
   profiles:
-    active: uat
+    active: dev
 
 ---
 
 spring:
   profiles: dev
 
-startRoute: timer:hello?period=10s
+activeMQRoute: activemq:writeToMq
 fromRoute: file:src/main/resources/input?delete=true
 toRoute: file:src/main/resources/output
 
@@ -22,9 +25,10 @@ message: Message from DEV environment.
 spring:
   profiles: uat
 
-startRoute: timer:hello?period=10s
+activeMQRoute: activemq:writeToMq
 fromRoute: file:src/main/resources/output?delete=true
 toRoute: file:src/main/resources/input
+
 
 message: Message from UAT environment.
 

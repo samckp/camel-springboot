@@ -23,6 +23,7 @@ public class CsvReaderRoute extends RouteBuilder {
         from("{{fromRoute}}")
                 .log("timer invoked : " + env.getProperty("message"))
 
+                .to("{{activeMQRoute}}")
                 .to("{{toRoute}}")
                 .unmarshal(dataFormat)
                 .log("Unmarshalled Objects are : ${body}");
