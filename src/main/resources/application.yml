@@ -2,18 +2,30 @@ camel:
   springboot:
       main-run-controller: true
 
+---
 spring:
   profiles:
-    active: dev
+    active: uat
+
 ---
 
 spring:
   profiles: dev
 
-  startRoute: timer:hello?period=10s
-  fromRoute: file:src/main/resources/input?delete=true
-  toRoute: file:src/main/resources/output
+startRoute: timer:hello?period=10s
+fromRoute: file:src/main/resources/input?delete=true
+toRoute: file:src/main/resources/output
 
-  message: Message from DEV environment.
+message: Message from DEV environment.
+
+---
+spring:
+  profiles: uat
+
+startRoute: timer:hello?period=10s
+fromRoute: file:src/main/resources/output?delete=true
+toRoute: file:src/main/resources/input
+
+message: Message from UAT environment.
 
 ---
