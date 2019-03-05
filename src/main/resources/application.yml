@@ -5,7 +5,13 @@ camel:
 spring:
   activemq:
     broker-url: tcp://localhost:61616
+    userName: admin
+    password: admin
+ #   pool:
+ #     enabled: true
+ #     max-connections: 50
 ---
+
 spring:
   profiles:
     active: dev

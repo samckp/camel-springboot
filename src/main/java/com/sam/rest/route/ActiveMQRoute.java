@@ -11,12 +11,13 @@ public class ActiveMQRoute extends RouteBuilder {
 
         from("{{activeMQRoute}}")
                 .to("log:?level=INFO&showBody=true")
-                .to("log:sample");
+                .to("activemq:queue:writeToMq");
 
 
         from("activemq:queue:writeToMq")
-                .log("Messsage read from AMQ Queue : ${body}")
-                .transform(simple("Hello ${body}, Welcome to JavaOutOfBounds.com"))
-                .convertBodyTo(String.class, "UTF-8");
+                .log("\n>>>>>>>>>>>>>>Messsage reading from AMQ Queue :\n ${body} \n<<<<<<<<<<<<<<<<<<<<<")
+                .transform(simple("Testing---\n ${body}, \nWelcome to ActiveMQ POC !!"))
+                .convertBodyTo(String.class, "UTF-8")
+        .log("\n>>>>>>>>>>>>>>>>>>>>\n${body}<<<<<<<<<<<<<<<<<<\n");
     }
 }

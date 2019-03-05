@@ -4,10 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-    <bean id="jms" class="org.apache.activemq.camel.component.ActiveMQComponent">
+   <!-- <bean id="jms" class="org.apache.activemq.camel.component.ActiveMQComponent">
         <property name="brokerURL" value="tcp://localhost:61616" />
-        <property name="userName" value="admin"/>
+        <property name="username" value="admin"/>
         <property name="password" value="admin"/>
-    </bean>
+    </bean>-->
 
 </beans>

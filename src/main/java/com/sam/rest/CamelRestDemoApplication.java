@@ -10,7 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 @SpringBootApplication
 @ComponentScan("com.sam.rest.route")
 @PropertySource("application.yml")
-@ImportResource("classpath:Beans.xml")
+@ImportResource("classpath:Bean.xml")
 public class CamelRestDemoApplication {
 
 	public static void main(String[] args) {
