@@ -22,14 +22,28 @@ public class RestletRoute extends RouteBuilder {
 
         restConfiguration()
                 .component("restlet")
+                .apiContextPath("/api-doc")
+                .apiProperty("api.title", "Example API").apiProperty("api.version", "1.0")
+                .apiProperty("cors", "true")
                 .host("localhost").port("8888");
+
+        rest("/swagger")
+                .produces("text/html")
+                .get("/index.html")
+                .responseMessage().code(200).message("Swagger UI").endResponseMessage()
+                .to("direct://get/swagger/ui/path");
+
+        from("direct://get/swagger/ui/path")
+                .routeId("SwaggerUI")
+                .setBody().simple("resource:classpath:/swagger/index.html");
+
 
         rest("/employee")
                 .post().to("direct:postEmployees")
-                .get().to("direct:getEmployees")
-                .get("/{empId}").to("direct:getEmployeeId")
-                .put("/{personId}").to("direct:putEmpId")
-                .delete("/{empId}").to("direct:deleteEmployeeId");
+                .get().to("direct:getEmployees").description("All Employees list")
+                .get("/{empId}").to("direct:getEmployeeId").description("Find Employee by Id")
+                .put("/{empId}").to("direct:putEmpId").description("Modify Emp by ID")
+                .delete("/{empId}").to("direct:deleteEmployeeId").description("Delete emp by Id");
 
         from("direct:getEmployees")
                 .setBody(simple("select * from employee"))
