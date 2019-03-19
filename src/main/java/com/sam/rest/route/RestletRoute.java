@@ -1,12 +1,13 @@
 package com.sam.rest.route;
 
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-
 
 @Component
 public class RestletRoute extends RouteBuilder {
@@ -18,25 +19,18 @@ public class RestletRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        onException(Exception.class).handled(true).log("Exception caught !!");
+        onException(Exception.class).handled(true)
+                .transform(exceptionMessage())
+                .log(LoggingLevel.ERROR, "Exception in the route ${exceptionMessage}")
+                ;
 
         restConfiguration()
                 .component("restlet")
+                .bindingMode(RestBindingMode.auto)
                 .apiContextPath("/api-doc")
-                .apiProperty("api.title", "Example API").apiProperty("api.version", "1.0")
+                .apiProperty("api.title", "Example of REST API").apiProperty("api.version", "1.0")
                 .apiProperty("cors", "true")
                 .host("localhost").port("8888");
-
-        rest("/swagger")
-                .produces("text/html")
-                .get("/index.html")
-                .responseMessage().code(200).message("Swagger UI").endResponseMessage()
-                .to("direct://get/swagger/ui/path");
-
-        from("direct://get/swagger/ui/path")
-                .routeId("SwaggerUI")
-                .setBody().simple("resource:classpath:/swagger/index.html");
-
 
         rest("/employee")
                 .post().to("direct:postEmployees")
@@ -52,26 +46,22 @@ public class RestletRoute extends RouteBuilder {
 
         from("direct:getEmployeeId")
                 .setBody(simple("select * from employee where id = ${header.empId}"))
+                .log("post----->${body}")
                 .to("jdbc:dataSource");
 
         from("direct:postEmployees")
-                .setBody(simple("insert into employee(department, employee_name, employee_salary) " +
-                        "values('${header.department}','${header.employee_name}'),${header.employee_salary})"))
-                .to("jdbc:dataSource")
-                .setBody(simple("select * from employee where id in (select max(id) from employee)"))
+                .setBody(simple("INSERT INTO employee ( department, employee_name, employee_salary) VALUES "+
+                        "('${body[department]}', '${body[employee_name]}', ${body[salary]})"))
                 .to("jdbc:dataSource");
 
         from("direct:putEmpId")
-                .setBody(simple("update employee set department='${header.department}', employee_name='${header.employee_name}'," +
-                        "employee_salary=${header.employee_salary} where id = ${header.personId}"))
+                .setBody(simple("update employee set department='${body[department]}', employee_name='${body[employee_name]}'," +
+                        "employee_salary = ${body[salary]} where id = ${header.empId}"))
                 .to("jdbc:dataSource");
 
         from("direct:deleteEmployeeId")
                 .setBody(simple("delete from employee where id = ${header.empId}"))
                 .to("jdbc:dataSource");
-
-
     }
-
-    }
+}
 

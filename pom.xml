@@ -16,17 +16,14 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<camel.version>2.23.1</camel.version>
-
 	</properties>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 			<version>1.5.9.RELEASE</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -62,6 +59,12 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-jms</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jackson</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
 
@@ -114,6 +117,11 @@
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-data-rest</artifactId>
 			<version>2.9.2</version>
 		</dependency>
 
