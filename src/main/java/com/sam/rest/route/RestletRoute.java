@@ -26,6 +26,7 @@ public class RestletRoute extends RouteBuilder {
 
         restConfiguration()
                 .component("restlet")
+                .apiContextRouteId("service1")
                 .bindingMode(RestBindingMode.auto)
                 .apiContextPath("/api-doc")
                 .apiProperty("api.title", "Example of REST API").apiProperty("api.version", "1.0")
