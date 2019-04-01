@@ -1,0 +1,32 @@
+ I either want my or their version in full, or want to review individual changes and decide for each of them.
+
+Fully accept my or theirs version:
+
+Accept my version (local, ours):
+
+git checkout --ours -- <filename>
+git add <filename>              # Marks conflict as resolved
+git commit -m "merged bla bla"  # An "empty" commit
+Accept their version (remote, theirs):
+
+git checkout --theirs -- <filename>
+git add <filename>
+git commit -m "merged bla bla"
+If you want to do for all conflict files run:
+
+git merge --strategy-option ours
+or
+
+git merge --strategy-option theirs
+Review all changes and accept them individually
+
+git mergetool
+Review changes and accept either version for each of them.
+git add <filename>
+git commit -m "merged bla bla"
+Default mergetool works in command line. How to use a command line mergetool should be a separate question.
+
+You can also install visual tool for this, e.g. meld and run
+
+git mergetool -t meld
+It will open local version (ours), "base" or "merged" version (the current result of the merge) and remote version (theirs). Save the merged version when you are finished, run git mergetool -t meld again until you get "No files need merging", then go to Steps 3. and 4.
