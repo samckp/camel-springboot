@@ -1,4 +1,4 @@
-package com.sam.config;
+package com.sam.rest.config;
 
 import java.time.LocalDate;
 import org.springframework.context.annotation.Bean;
