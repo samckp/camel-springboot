@@ -1,4 +1,4 @@
-create table users
+create table employee
 (
    id integer not null,
    employee_name varchar(255) not null,
