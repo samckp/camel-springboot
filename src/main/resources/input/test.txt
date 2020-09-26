@@ -1,7 +1,0 @@
-tnxType,skuId,itemName,price
-ADD,100, samsung TV, 48000
-ADD, 101, Sony Sound System, 9930
-ADD,102, samsung Mobile, 88990
-ADD, 103, LG Mobile, 4889
-ADD,104, Nikon Camera, 22339
-ADD, 105, Panasonic Owen, 7000
