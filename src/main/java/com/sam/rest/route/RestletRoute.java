@@ -3,6 +3,7 @@ package com.sam.rest.route;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
+import org.apache.camel.model.rest.RestOperationParamDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -35,7 +36,7 @@ public class RestletRoute extends RouteBuilder {
         ;
 
         rest("/employee")
-                .post().to("direct:postEmployees")
+                .post().to("direct:postEmployees").description("Add New Employee")
                 .get().to("direct:getEmployees").description("All Employees list")
                 .get("/{empId}").to("direct:getEmployeeId").description("Find Employee by Id")
                 .put("/{empId}").to("direct:putEmpId").description("Modify Emp by ID")
